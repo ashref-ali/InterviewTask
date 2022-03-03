@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.text.TextUtils"/>
+
+        <variable
+                name="project"
+                type="com.app.model.project.Project"/>
+    </data>
+
+    <LinearLayout
+            style="@style/MatchWidthVertical">
+
+        <androidx.cardview.widget.CardView
+                style="@style/MatchWidth"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_margin="@dimen/dimen_10dp"
+                app:cardElevation="@dimen/dimen_8dp"
+                app:cardCornerRadius="@dimen/dimen_8dp">
+
+            <LinearLayout
+                    style="@style/MatchWidthVertical"
+                    android:layout_margin="@dimen/dimen_10dp">
+
+                <LinearLayout
+                        style="@style/MatchWidthHorizontal">
+
+                    <ImageView
+                            style="@style/WrapWidthHeight"
+                            android:layout_marginTop="@dimen/dimen_10dp"
+                            app:srcCompat="@drawable/ic_vector_repo"
+                            android:contentDescription="@string/app_name"/>
+
+                    <TextView
+                            style="@style/WrapWidthHeight"
+                            android:textSize="@dimen/text_size_17sp"
+                            android:text="@string/square"
+                            android:textColor="@color/colorBlue"
+                            android:textStyle="normal"
+                            android:gravity="center"/>
+
+                    <TextView
+                            style="@style/WrapWidthHeight"
+                            android:textSize="@dimen/text_size_17sp"
+                            android:text="@string/slash"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold"
+                            android:gravity="center"/>
+
+                    <TextView
+                            style="@style/WrapWidthHeight"
+                            android:textSize="@dimen/text_size_17sp"
+                            android:visibility="@{TextUtils.isEmpty(project.name) ? View.GONE : View.VISIBLE}"
+                            android:text="@{project.name}"
+                            android:textColor="@color/colorBlue"
+                            android:textStyle="bold"
+                            android:gravity="center"/>
+
+                </LinearLayout>
+
+                <TextView
+                        style="@style/WrapWidthHeight"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:layout_marginBottom="@dimen/dimen_10dp"
+                        android:textSize="@dimen/text_size_14sp"
+                        android:visibility="@{TextUtils.isEmpty(project.description) ? View.GONE : View.VISIBLE}"
+                        android:text="@{project.description}"
+                        android:textColor="@color/colorGray"/>
+
+                <LinearLayout
+                        style="@style/MatchWidth"
+                        android:weightSum="2"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            style="@style/ZeroWidthWrapHeight"
+                            android:layout_weight="0.5"
+                            android:drawableStart="@drawable/ic_vector_star"
+                            android:textColor="@color/colorDarkGray"
+                            android:textSize="@dimen/text_size_12sp"
+                            android:visibility="@{safeUnbox(project.stars) != 0 ? View.VISIBLE : View.GONE}"
+                            android:text="@{Integer.toString(safeUnbox(project.stars))}"/>
+
+                    <TextView
+                            style="@style/ZeroWidthWrapHeight"
+                            android:layout_weight="0.5"
+                            android:drawableStart="@drawable/circle_shape"
+                            android:layout_marginStart="@dimen/dimen_20dp"
+                            android:drawablePadding="@dimen/dimen_5dp"
+                            android:textColor="@color/colorDarkGray"
+                            android:textSize="@dimen/text_size_12sp"
+                            android:visibility="@{TextUtils.isEmpty(project.language) ? View.GONE : View.VISIBLE}"
+                            android:text="@{project.language}"/>
+
+                    <TextView
+                            style="@style/ZeroWidthWrapHeight"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/dimen_20dp"
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/text_size_12sp"
+                            android:visibility="@{TextUtils.isEmpty(project.updatedAt) ? View.GONE : View.VISIBLE}"
+                            app:updatedAt="@{project.updatedAt}"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</layout>
